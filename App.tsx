@@ -1,118 +1,143 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+export default function App() {
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  const [squareBackground, setSquareBackground] = useState("#85d0a8")
+  const [circleBackground, setCircleBackground] = useState("#e089e9")
+  const [rectangleBackground, setRectangleBackground] = useState("#c79248")
+  const [backgroundColor, setBackgroundColor] = useState("#a4bfec")
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  const generateColor = () => {
+    const hexRange = "0123456789ABCDEF"
+    let color = "#"
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+    for (let i = 0; i < 6; i++) {
+      color += hexRange[Math.floor(Math.random()*16)]
+    }
+    
+    return color
+  }
+
+  const chageSquareBg = () => {
+    setSquareBackground(generateColor())
+  }
+
+  const changeCirclebg = () => {
+    setCircleBackground(generateColor())
+  }
+
+  const changeRectanglebg = () => {
+    setRectangleBackground(generateColor())
+  }
+
+  const changeBg = () => {
+    setBackgroundColor(generateColor())
+  }
+
+  const resetColors = () => {
+    setSquareBackground("#85d0a8")
+    setCircleBackground("#e089e9")
+    setRectangleBackground("#c79248")
+    setBackgroundColor("#a4bfec")
+  }
+  
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <>
+    <StatusBar backgroundColor={"#212121"} />
+      <View style={[styles.container, {backgroundColor: backgroundColor}]}>
+      <TouchableOpacity onPress={chageSquareBg}>
+        <View style={[styles.actionSquareBtn, {backgroundColor: squareBackground}]}>
+          <Text style={styles.scquareBtnTxt}>Square</Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={changeCirclebg}>
+        <View style={[styles.actionCircleBtn, {backgroundColor: circleBackground}]}>
+          <Text style={styles.circleBtnTxt}>Circle</Text>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={changeRectanglebg}>
+        <View style={[styles.actionRectangleBtn, {backgroundColor: rectangleBackground}]}>
+          <Text style={styles.rectangleBtnTxt}>Rectangle</Text>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={changeBg}>
+        <View style={styles.clickBtn}>
+          <Text style={styles.clickBtnTxt}>Change Background</Text>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={resetColors}>
+        <View style={styles.clickBtn}>
+          <Text style={styles.clickBtnTxt}>Reset</Text>
+        </View>
+      </TouchableOpacity>
+
+      </View>
+    </>
+  )
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex : 1,
+    alignItems: 'center',
   },
-  sectionTitle: {
+  actionSquareBtn: {
+    height: 150,
+    width: 150,
+    marginTop: 30,
+    backgroundColor: "#212121",
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  scquareBtnTxt: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: 'bold',
+    color: '#fff',
+    textTransform: 'uppercase'
   },
-  sectionDescription: {
-    marginTop: 8,
+  actionCircleBtn: {
+    height: 150,
+    width: 150,
+    borderRadius: 150/2,
+    backgroundColor: "#641B4D",
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  circleBtnTxt: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    textTransform: 'uppercase',
+  },
+  actionRectangleBtn: {
+    height: 150,
+    width: 250,
+    marginTop: 30,
+    backgroundColor: "#212121",
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  rectangleBtnTxt: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    textTransform: 'uppercase'
+  },
+  clickBtn: {
+    backgroundColor: "#641B4D",
+    borderRadius: 6,
+    marginTop: 30
+  },
+  clickBtnTxt: {
     fontSize: 18,
-    fontWeight: '400',
+    fontWeight: 'bold',
+    color: '#fff',
+    padding: 8
   },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+})
